@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class NotaViewHolder extends RecyclerView.ViewHolder {
     public TextView titulo, contenido;
-    NotaViewHolder(View itemView) {
+    public NotaViewHolder(View itemView) {
         super(itemView);
         titulo = itemView.findViewById(R.id.notaTitulo);
         contenido = itemView.findViewById(R.id.notaContenido);

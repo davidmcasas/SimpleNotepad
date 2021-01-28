@@ -28,6 +28,7 @@
 
             <Button
                 android:id="@+id/button_categorias"
+                android:onClick="botonEditarCategorias"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Edit Categories"

@@ -34,7 +34,7 @@ public class NeodatisHelper {
      * Version de la base de datos,
      * cambiar este valor borrará la base de datos.
      */
-    final long VERSION = 1L;
+    final long VERSION = 5L;
 
     /**
      * Instancia del ayudante.
@@ -45,6 +45,8 @@ public class NeodatisHelper {
      * Directorio donde se almacenará el archivo de la base de datos.
      */
     private String path;
+
+    private ODB odb;
 
     /**
      * Constructor con Context.
@@ -59,6 +61,7 @@ public class NeodatisHelper {
     public NeodatisHelper(Context context) {
 
         this.path = context.getDir("data", Context.MODE_PRIVATE).getAbsolutePath()+"/data.odb";
+        this.odb = ODBFactory.open(path);
         initialize();
     }
 
@@ -105,25 +108,27 @@ public class NeodatisHelper {
      */
     private void initialize() {
 
-        ODB odb = ODBFactory.open(path);
         Objects<DatabaseVersion> versionObjects = odb.getObjects(DatabaseVersion.class);
 
         if (versionObjects.size() == 0) {
             odb.store(new DatabaseVersion(VERSION));
         } else if (versionObjects.getFirst().getVersion() != VERSION) {
             odb.delete(versionObjects.getFirst());
-            odb.close();
             File f = new File(path);
             if (f.exists()) {
-                if (f.delete()) {
-                    odb = ODBFactory.open(path);
-                    odb.store(new DatabaseVersion(VERSION));
-                }
+                odb.close();
+                f.delete();
+                odb = ODBFactory.open(path);
+                odb.store(new DatabaseVersion(VERSION));
             }
         }
         //versionObjects = odb.getObjects(DatabaseVersion.class);
         //Log.d("PRUEBAS - Version",""+versionObjects.getFirst().getVersion());
-        odb.close();
+    }
+
+
+    public void terminate() {
+        this.odb.close();
     }
 
     /*
@@ -136,9 +141,8 @@ public class NeodatisHelper {
      * @param nota Nota a guardar
      */
     public void guardarNota(Nota nota) {
-        ODB odb = ODBFactory.open(path);
         odb.store(nota);
-        odb.close();
+        odb.commit();
     }
 
     /**
@@ -146,9 +150,8 @@ public class NeodatisHelper {
      * @param categoria Categoria a guardar
      */
     public void guardarCategoria(Categoria categoria) {
-        ODB odb = ODBFactory.open(path);
         odb.store(categoria);
-        odb.close();
+        odb.commit();
     }
 
     /**
@@ -156,12 +159,10 @@ public class NeodatisHelper {
      * @param nota Nota a eliminar
      */
     public void borrarNota(Nota nota) {
-        ODB odb = ODBFactory.open(path);
         try {
             odb.delete(nota);
+            odb.commit();
         } catch (Exception ignored) {}
-
-        odb.close();
     }
 
     /**
@@ -171,8 +172,6 @@ public class NeodatisHelper {
      */
     public void borrarCategoria(Categoria categoria) {
 
-        ODB odb = ODBFactory.open(path);
-
         try {
 
             IQuery query = new CriteriaQuery(Nota.class, Where.equal("categoria", odb.getObjectId(categoria)));
@@ -181,13 +180,12 @@ public class NeodatisHelper {
             for (Nota nota : notas) {
                 nota.setCategoria(null);
                 odb.store(nota);
+                odb.commit();
             }
-            odb.commit();
             odb.delete(categoria);
+            odb.commit();
 
-        } catch (Exception ignored) {}
-
-        odb.close();
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     /**
@@ -196,10 +194,9 @@ public class NeodatisHelper {
      */
     public ArrayList<Categoria> getCategorias() {
 
-        ODB odb = ODBFactory.open(path);
         Objects<Categoria> categoriasObjects = odb.getObjects(Categoria.class);
         ArrayList<Categoria> categorias = new ArrayList<>(categoriasObjects);
-        odb.close();
+
         return categorias;
     }
 
@@ -209,10 +206,9 @@ public class NeodatisHelper {
      */
     public ArrayList<Nota> getNotas() {
 
-        ODB odb = ODBFactory.open(path);
         Objects<Nota> notasObjects = odb.getObjects(Nota.class);
         ArrayList<Nota> notas = new ArrayList<>(notasObjects);
-        odb.close();
+
         return notas;
     }
 
@@ -228,7 +224,6 @@ public class NeodatisHelper {
         }
 
         ArrayList<Nota> notas = new ArrayList<>();
-        ODB odb = ODBFactory.open(path);
 
         try {
             IQuery query = new CriteriaQuery(Nota.class, Where.equal("categoria", odb.getObjectId(categoria)));
@@ -236,7 +231,6 @@ public class NeodatisHelper {
             notas.addAll(notasObjects);
         } catch (Exception ignored) {}
 
-        odb.close();
         return notas;
     }
 }

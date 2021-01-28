@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import org.neodatis.odb.ODB;
+import org.neodatis.odb.ODBFactory;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,14 +23,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         neodatis = NeodatisHelper.getInstance(this);
-
-        //neodatis.guardarNota(new Nota("Titulillo", "Contenidillo"));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
         cargarListaNotas();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        neodatis.terminate();
     }
 
     private void cargarListaNotas() {
@@ -50,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
     public void botonNuevaNota(View view) {
         Intent intent = new Intent(this, EditNotaActivity.class);
         intent.putExtra("nota", new Nota());
+        this.startActivity(intent);
+    }
+
+    public void botonEditarCategorias(View view) {
+        Intent intent = new Intent(this, CategoriasActivity.class);
         this.startActivity(intent);
     }
 }
