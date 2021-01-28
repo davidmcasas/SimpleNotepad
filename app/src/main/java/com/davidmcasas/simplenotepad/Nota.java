@@ -1,10 +1,18 @@
 package com.davidmcasas.simplenotepad;
 
-public class Nota {
+import java.io.Serializable;
+
+public class Nota implements Serializable {
 
     private Categoria categoria;
     private String titulo;
     private String contenido;
+
+    public Nota() {
+        this.categoria = null;
+        this.titulo = "";
+        this.contenido = "";
+    }
 
     public Nota(String titulo, String contenido) {
         this.categoria = null;
