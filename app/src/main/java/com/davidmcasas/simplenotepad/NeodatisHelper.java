@@ -123,11 +123,11 @@ public class NeodatisHelper {
                 }
             }
         }
-        //versionObjects = odb.getObjects(DatabaseVersion.class);
-        //Log.d("PRUEBAS - Version",""+versionObjects.getFirst().getVersion());
     }
 
-
+    /**
+     * Cierra la base de datos.
+     */
     public void terminate() {
         this.odb.close();
     }
@@ -211,7 +211,8 @@ public class NeodatisHelper {
 
     /**
      * Devuelve una lista de todos los objetos Nota cuya Categoria sea la indicada
-     * @param categoria Categoria a filtrar
+     * @param categoria Categoria a filtrar. Si es null, se recogeran todas las notas.
+     * @param onlyNullCategory Si es true, se ingorará la categoría, y se recogerán solo las notas con categoría null
      * @return ArrayList de objetos Nota
      */
     public ArrayList<Nota> getNotas(Categoria categoria, boolean onlyNullCategory) {

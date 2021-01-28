@@ -38,7 +38,6 @@ public class NotaAdapter extends RecyclerView.Adapter<NotaViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, EditNotaActivity.class);
-                //intent.putExtra("nota", nota);
                 EditNotaActivity.nota = nota;
                 context.startActivity(intent);
             }

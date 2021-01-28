@@ -1,8 +1,6 @@
 package com.davidmcasas.simplenotepad;
 
-import java.io.Serializable;
-
-public class Categoria implements Serializable {
+public class Categoria {
 
     private String nombre;
 

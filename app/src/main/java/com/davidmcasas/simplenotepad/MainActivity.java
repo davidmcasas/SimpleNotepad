@@ -6,20 +6,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import org.neodatis.odb.ODB;
-import org.neodatis.odb.ODBFactory;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static NeodatisHelper neodatis;
+    private NeodatisHelper neodatis;
     public Spinner spinner;
 
     @Override
@@ -48,13 +44,12 @@ public class MainActivity extends AppCompatActivity {
             lista.add(c.getNombre());
         }
         lista.add("Uncategorized");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, lista);
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, lista);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
@@ -115,8 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void botonNuevaNota(View view) {
         Intent intent = new Intent(this, EditNotaActivity.class);
-        intent.putExtra("categoria_pos", spinner.getSelectedItemPosition());
-        //intent.putExtra("nota", new Nota());
+        intent.putExtra("pos", spinner.getSelectedItemPosition());
         EditNotaActivity.nota = null;
         this.startActivity(intent);
     }

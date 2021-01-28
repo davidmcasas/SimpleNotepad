@@ -2,9 +2,7 @@ package com.davidmcasas.simplenotepad;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,41 +15,34 @@ import java.util.ArrayList;
 public class EditNotaActivity extends AppCompatActivity {
 
     public static Nota nota;
-    private Nota notaa;
     private EditText titulo, contenido;
     private Spinner spinner;
     private boolean editing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_nota);
         this.titulo = findViewById(R.id.editTextTitulo);
         this.contenido = findViewById(R.id.editTextContenido);
         this.spinner = findViewById(R.id.spinner_nota);
-        this.editing = false;
-        titulo.setFocusableInTouchMode(false);
-        contenido.setFocusableInTouchMode(false);
-        spinner.setEnabled(false);
 
-        Intent intent = getIntent();
-        //this.nota = (Nota) intent.getSerializableExtra("nota");
         if (nota == null) {
             nota = new Nota();
             this.editing = true;
-            titulo.setFocusableInTouchMode(true);
-            contenido.setFocusableInTouchMode(true);
-            spinner.setEnabled(true);
             Button b = findViewById(R.id.button_guardar);
             b.setText("Save");
         } else {
+            this.editing = false;
             titulo.setText(nota.getTitulo());
             contenido.setText(nota.getContenido());
+            titulo.setFocusableInTouchMode(false);
+            contenido.setFocusableInTouchMode(false);
+            spinner.setEnabled(false);
         }
         cargarSpinnerCategorias();
 
-        int pos = intent.getIntExtra("categoria_pos", -1);
+        int pos = getIntent().getIntExtra("pos", -1);
         if (pos >= 0 && pos < spinner.getCount()) {
             this.spinner.setSelection(pos);
         }
@@ -80,9 +71,9 @@ public class EditNotaActivity extends AppCompatActivity {
         ArrayList<String> lista = new ArrayList<>();
         lista.add("Uncategorized");
         int position = 0;
-        for (Categoria c : categorias) {
-            lista.add(c.getNombre());
-            if (nota.getCategoria()!= null && nota.getCategoria() == c) {
+        for (Categoria categoria : categorias) {
+            lista.add(categoria.getNombre());
+            if (nota.getCategoria() != null && nota.getCategoria() == categoria) {
                 position = lista.size()-1;
             }
         }
