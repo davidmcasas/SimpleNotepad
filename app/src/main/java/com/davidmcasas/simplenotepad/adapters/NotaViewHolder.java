@@ -1,8 +1,10 @@
-package com.davidmcasas.simplenotepad;
+package com.davidmcasas.simplenotepad.adapters;
 
 import android.view.View;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.davidmcasas.simplenotepad.R;
 
 public class NotaViewHolder extends RecyclerView.ViewHolder {
     public TextView titulo, contenido;

@@ -1,4 +1,4 @@
-package com.davidmcasas.simplenotepad;
+package com.davidmcasas.simplenotepad.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,7 +11,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+
+import com.davidmcasas.simplenotepad.data.Categoria;
+import com.davidmcasas.simplenotepad.R;
+import com.davidmcasas.simplenotepad.adapters.CategoriaAdapter;
+import com.davidmcasas.simplenotepad.data.NeodatisHelper;
 
 import java.util.ArrayList;
 

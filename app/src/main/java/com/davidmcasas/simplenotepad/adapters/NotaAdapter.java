@@ -1,4 +1,4 @@
-package com.davidmcasas.simplenotepad;
+package com.davidmcasas.simplenotepad.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,6 +11,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.davidmcasas.simplenotepad.activities.EditNotaActivity;
+import com.davidmcasas.simplenotepad.activities.MainActivity;
+import com.davidmcasas.simplenotepad.data.NeodatisHelper;
+import com.davidmcasas.simplenotepad.data.Nota;
+import com.davidmcasas.simplenotepad.R;
 
 public class NotaAdapter extends RecyclerView.Adapter<NotaViewHolder> {
 

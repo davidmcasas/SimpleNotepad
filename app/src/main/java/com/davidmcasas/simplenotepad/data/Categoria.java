@@ -1,4 +1,4 @@
-package com.davidmcasas.simplenotepad;
+package com.davidmcasas.simplenotepad.data;
 
 public class Categoria {
 

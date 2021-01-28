@@ -1,4 +1,4 @@
-package com.davidmcasas.simplenotepad;
+package com.davidmcasas.simplenotepad.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +10,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import com.davidmcasas.simplenotepad.data.Categoria;
+import com.davidmcasas.simplenotepad.data.Nota;
+import com.davidmcasas.simplenotepad.R;
+import com.davidmcasas.simplenotepad.adapters.NotaAdapter;
+import com.davidmcasas.simplenotepad.data.NeodatisHelper;
 
 import java.util.ArrayList;
 

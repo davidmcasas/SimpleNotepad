@@ -1,21 +1,22 @@
-package com.davidmcasas.simplenotepad;
+package com.davidmcasas.simplenotepad.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.davidmcasas.simplenotepad.data.Categoria;
+import com.davidmcasas.simplenotepad.activities.CategoriasActivity;
+import com.davidmcasas.simplenotepad.data.NeodatisHelper;
+import com.davidmcasas.simplenotepad.R;
 
 public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaViewHolder> {
 

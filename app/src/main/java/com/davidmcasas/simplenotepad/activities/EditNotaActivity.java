@@ -1,4 +1,4 @@
-package com.davidmcasas.simplenotepad;
+package com.davidmcasas.simplenotepad.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.davidmcasas.simplenotepad.data.Categoria;
+import com.davidmcasas.simplenotepad.data.Nota;
+import com.davidmcasas.simplenotepad.R;
+import com.davidmcasas.simplenotepad.data.NeodatisHelper;
 
 import java.util.ArrayList;
 

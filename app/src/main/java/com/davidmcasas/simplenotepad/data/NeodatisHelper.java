@@ -1,7 +1,6 @@
-package com.davidmcasas.simplenotepad;
+package com.davidmcasas.simplenotepad.data;
 
 import android.content.Context;
-import android.util.Log;
 
 import org.neodatis.odb.ODB;
 import org.neodatis.odb.ODBFactory;
@@ -34,7 +33,7 @@ public class NeodatisHelper {
      * Version de la base de datos,
      * cambiar este valor borrará la base de datos.
      */
-    final long VERSION = 1L;
+    final long VERSION = 2L;
 
     /**
      * Instancia del ayudante.
