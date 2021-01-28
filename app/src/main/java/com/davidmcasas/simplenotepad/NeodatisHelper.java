@@ -34,7 +34,7 @@ public class NeodatisHelper {
      * Version de la base de datos,
      * cambiar este valor borrará la base de datos.
      */
-    final long VERSION = 5L;
+    final long VERSION = 8L;
 
     /**
      * Instancia del ayudante.
@@ -117,9 +117,10 @@ public class NeodatisHelper {
             File f = new File(path);
             if (f.exists()) {
                 odb.close();
-                f.delete();
-                odb = ODBFactory.open(path);
-                odb.store(new DatabaseVersion(VERSION));
+                if (f.delete()) {
+                    odb = ODBFactory.open(path);
+                    odb.store(new DatabaseVersion(VERSION));
+                }
             }
         }
         //versionObjects = odb.getObjects(DatabaseVersion.class);
@@ -195,9 +196,7 @@ public class NeodatisHelper {
     public ArrayList<Categoria> getCategorias() {
 
         Objects<Categoria> categoriasObjects = odb.getObjects(Categoria.class);
-        ArrayList<Categoria> categorias = new ArrayList<>(categoriasObjects);
-
-        return categorias;
+        return new ArrayList<>(categoriasObjects);
     }
 
     /**
@@ -207,9 +206,7 @@ public class NeodatisHelper {
     public ArrayList<Nota> getNotas() {
 
         Objects<Nota> notasObjects = odb.getObjects(Nota.class);
-        ArrayList<Nota> notas = new ArrayList<>(notasObjects);
-
-        return notas;
+        return new ArrayList<>(notasObjects);
     }
 
     /**
@@ -217,13 +214,20 @@ public class NeodatisHelper {
      * @param categoria Categoria a filtrar
      * @return ArrayList de objetos Nota
      */
-    public ArrayList<Nota> getNotas(Categoria categoria) {
+    public ArrayList<Nota> getNotas(Categoria categoria, boolean onlyNullCategory) {
+
+        ArrayList<Nota> notas = new ArrayList<>();
+
+        if (onlyNullCategory) {
+            IQuery query = new CriteriaQuery(Nota.class, Where.isNull("categoria"));
+            Objects<Nota> notasObjects = odb.getObjects(query);
+            notas.addAll(notasObjects);
+            return notas;
+        }
 
         if (categoria == null) {
             return getNotas();
         }
-
-        ArrayList<Nota> notas = new ArrayList<>();
 
         try {
             IQuery query = new CriteriaQuery(Nota.class, Where.equal("categoria", odb.getObjectId(categoria)));

@@ -38,9 +38,35 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(context, EditNotaActivity.class);
-                intent.putExtra("nota", nota);
-                context.startActivity(intent);*/
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setCancelable(true);
+                builder.setTitle(categoria.getNombre());
+                builder.setMessage("Type a new name for this category.");
+                final EditText input = new EditText(context);
+                input.setText(categoria.getNombre());
+                LinearLayout parentLayout = new LinearLayout(view.getContext());
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                lp.setMargins(80,20,80,20);
+                input.setLayoutParams(lp);
+                parentLayout.addView(input);
+                builder.setView(parentLayout);
+
+                // Añadimos el botón OK y definimos su funcionalidad
+                builder.setPositiveButton("OK"/*android.R.string.ok*/,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                categoria.setNombre(input.getText().toString());
+                                NeodatisHelper.getInstance(context).guardarCategoria(categoria);
+                                ((CategoriasActivity)context).cargarListaCategorias();
+                            }
+                        });
+
+                // Mostramos el diálogo
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -50,7 +76,7 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaViewHolder> 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setCancelable(true);
                 builder.setTitle(categoria.getNombre());
-                builder.setMessage("Delete this category?");
+                builder.setMessage("Delete this category? Notes under this category won't be deleted.");
                 builder.setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             @Override

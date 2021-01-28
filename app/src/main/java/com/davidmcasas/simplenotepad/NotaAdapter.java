@@ -31,11 +31,15 @@ public class NotaAdapter extends RecyclerView.Adapter<NotaViewHolder> {
         final Nota nota = notas.get(position);
         holder.titulo.setText(nota.getTitulo());
         holder.contenido.setText(nota.getContenido());
+        if (nota.getTitulo().trim().length() == 0) {
+            holder.titulo.setVisibility(View.GONE);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, EditNotaActivity.class);
-                intent.putExtra("nota", nota);
+                //intent.putExtra("nota", nota);
+                EditNotaActivity.nota = nota;
                 context.startActivity(intent);
             }
         });
@@ -50,7 +54,8 @@ public class NotaAdapter extends RecyclerView.Adapter<NotaViewHolder> {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // TODO borrar nota
+                                NeodatisHelper.getInstance(context).borrarNota(nota);
+                                ((MainActivity)context).cargarSpinnerCategorias(((MainActivity)context).spinner.getSelectedItemPosition());
                             }
                         });
                 builder.setNegativeButton("No",

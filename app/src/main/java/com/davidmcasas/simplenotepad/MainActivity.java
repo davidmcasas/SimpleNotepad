@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import org.neodatis.odb.ODB;
 import org.neodatis.odb.ODBFactory;
@@ -16,20 +20,65 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     public static NeodatisHelper neodatis;
+    public Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        spinner = findViewById(R.id.spinner);
         neodatis = NeodatisHelper.getInstance(this);
+
+        cargarListaNotas();
+        cargarSpinnerCategorias(0);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        cargarSpinnerCategorias(spinner.getSelectedItemPosition());
+    }
 
-        cargarListaNotas();
+    public void cargarSpinnerCategorias(int selection) {
+
+        final ArrayList<Categoria> categorias = NeodatisHelper.getInstance(this).getCategorias();
+        ArrayList<String> lista = new ArrayList<>();
+        lista.add("All Notes");
+        for (Categoria c : categorias) {
+            lista.add(c.getNombre());
+        }
+        lista.add("Uncategorized");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, lista);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    cargarListaNotas();
+                } else if (position == categorias.size() + 1) {
+                    cargarListaNotas(null, true);
+                } else {
+                    cargarListaNotas(categorias.get(position - 1));
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        try {
+            spinner.setSelection(selection);
+        } catch (Exception e) {
+            spinner.setSelection(0);
+        }
+
     }
 
     @Override
@@ -40,12 +89,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void cargarListaNotas() {
+        cargarListaNotas(null);
+    }
+
+    private void cargarListaNotas(Categoria categoria) {
+        cargarListaNotas(categoria, false);
+    }
+
+    private void cargarListaNotas(Categoria categoria, boolean onlyNullCategory) {
         RecyclerView notasView = findViewById(R.id.listaNotas);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         notasView.setLayoutManager(linearLayoutManager);
         notasView.setHasFixedSize(true);
 
-        ArrayList<Nota> notas = neodatis.getNotas();
+        ArrayList<Nota> notas = neodatis.getNotas(categoria, onlyNullCategory);
         if (notas.size() > 0) {
             notasView.setVisibility(View.VISIBLE);
             NotaAdapter mAdapter = new NotaAdapter(this, notas);
@@ -58,7 +115,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void botonNuevaNota(View view) {
         Intent intent = new Intent(this, EditNotaActivity.class);
-        intent.putExtra("nota", new Nota());
+        intent.putExtra("categoria_pos", spinner.getSelectedItemPosition());
+        //intent.putExtra("nota", new Nota());
+        EditNotaActivity.nota = null;
         this.startActivity(intent);
     }
 
