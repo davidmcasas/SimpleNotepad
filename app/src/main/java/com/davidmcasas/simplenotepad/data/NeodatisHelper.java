@@ -33,7 +33,7 @@ public class NeodatisHelper {
      * Version de la base de datos,
      * cambiar este valor borrará la base de datos.
      */
-    final long VERSION = 2L;
+    final long VERSION = 1L;
 
     /**
      * Instancia del ayudante.
@@ -45,6 +45,9 @@ public class NeodatisHelper {
      */
     private String path;
 
+    /**
+     * Instancia del gestor de Neodatis.
+     */
     private ODB odb;
 
     /**

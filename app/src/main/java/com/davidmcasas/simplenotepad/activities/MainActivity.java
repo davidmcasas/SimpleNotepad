@@ -115,9 +115,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void botonNuevaNota(View view) {
-        Intent intent = new Intent(this, EditNotaActivity.class);
+        Intent intent = new Intent(this, NotaActivity.class);
         intent.putExtra("pos", spinner.getSelectedItemPosition());
-        EditNotaActivity.nota = null;
+        NotaActivity.nota = null;
         this.startActivity(intent);
     }
 

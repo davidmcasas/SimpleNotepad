@@ -12,20 +12,18 @@
         android:layout_height="80sp"
         android:orientation="vertical"
         android:padding="8dp"
-        android:background="#66FFCC">
+        android:background="@drawable/nota_background">
             <TextView
                 android:id="@+id/notaTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/notaContenido"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="#000000"
                 android:textSize="16sp" />
     </LinearLayout>
 

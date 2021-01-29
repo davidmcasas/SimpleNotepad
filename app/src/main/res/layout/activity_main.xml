@@ -2,13 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/backgroundColor">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
@@ -17,14 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:fitsSystemWindows="true"
-            app:popupTheme="@style/AppTheme">
+            android:fitsSystemWindows="true">
 
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="200sp"
                 android:layout_height="wrap_content"
-                android:popupBackground="@color/colorPrimary"/>
+                android:popupBackground="?attr/colorPrimary"/>
 
             <Button
                 android:id="@+id/button_categorias"
@@ -52,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:backgroundTint="#66FFCC"
+        android:backgroundTint="?attr/colorPrimary"
         app:borderWidth="0dp"
         android:layout_margin="16dp"/>
 </FrameLayout>

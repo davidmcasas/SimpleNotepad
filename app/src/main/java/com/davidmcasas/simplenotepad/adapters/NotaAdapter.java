@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.davidmcasas.simplenotepad.activities.EditNotaActivity;
+import com.davidmcasas.simplenotepad.activities.NotaActivity;
 import com.davidmcasas.simplenotepad.activities.MainActivity;
 import com.davidmcasas.simplenotepad.data.NeodatisHelper;
 import com.davidmcasas.simplenotepad.data.Nota;
@@ -43,8 +43,8 @@ public class NotaAdapter extends RecyclerView.Adapter<NotaViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, EditNotaActivity.class);
-                EditNotaActivity.nota = nota;
+                Intent intent = new Intent(context, NotaActivity.class);
+                NotaActivity.nota = nota;
                 context.startActivity(intent);
             }
         });

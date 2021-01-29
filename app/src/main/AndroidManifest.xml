@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.CategoriasActivity"/>
-        <activity android:name=".activities.EditNotaActivity" android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activities.NotaActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

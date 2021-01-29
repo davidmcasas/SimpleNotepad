@@ -17,7 +17,7 @@ import com.davidmcasas.simplenotepad.data.NeodatisHelper;
 
 import java.util.ArrayList;
 
-public class EditNotaActivity extends AppCompatActivity {
+public class NotaActivity extends AppCompatActivity {
 
     public static Nota nota;
     private EditText titulo, contenido;
@@ -27,7 +27,7 @@ public class EditNotaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_nota);
+        setContentView(R.layout.activity_nota);
         this.titulo = findViewById(R.id.editTextTitulo);
         this.contenido = findViewById(R.id.editTextContenido);
         this.spinner = findViewById(R.id.spinner_nota);
@@ -51,7 +51,7 @@ public class EditNotaActivity extends AppCompatActivity {
         if (pos >= 0 && pos < spinner.getCount()) {
             this.spinner.setSelection(pos);
         }
-
+        new EditText(this).requestFocus();
     }
 
     public void botonEdit(View view) {
