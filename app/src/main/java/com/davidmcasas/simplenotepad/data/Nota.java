@@ -5,11 +5,14 @@ public class Nota {
     private Categoria categoria;
     private String titulo;
     private String contenido;
+    /*private long id;
+    private static long id_count = 1;*/
 
     public Nota() {
         this.categoria = null;
         this.titulo = "";
         this.contenido = "";
+        /*this.id = id_count++;*/
     }
 
     public Nota(String titulo, String contenido) {
@@ -48,4 +51,8 @@ public class Nota {
         return contenido;
     }
 
+    /*public long getId() {return id;}
+    public static long getId_count() { return id_count;}
+    public void setId(long id) {this.id = id; }
+    public static void setId_count(long id_count) {Nota.id_count = id_count;}*/
 }

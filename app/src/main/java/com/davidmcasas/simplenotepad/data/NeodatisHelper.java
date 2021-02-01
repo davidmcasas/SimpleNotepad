@@ -1,6 +1,12 @@
 package com.davidmcasas.simplenotepad.data;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+
+import com.davidmcasas.simplenotepad.AppWidget;
+import com.davidmcasas.simplenotepad.WidgetLink;
 
 import org.neodatis.odb.ODB;
 import org.neodatis.odb.ODBFactory;
@@ -33,7 +39,7 @@ public class NeodatisHelper {
      * Version de la base de datos,
      * cambiar este valor borrará la base de datos.
      */
-    final long VERSION = 1L;
+    final long VERSION = 8L;
 
     /**
      * Instancia del ayudante.
@@ -240,4 +246,30 @@ public class NeodatisHelper {
 
         return notas;
     }
+
+    //--
+
+    public void guardarLink(WidgetLink link) {
+        odb.store(link);
+        odb.commit();
+    }
+
+    public Nota leerLinkId(int id) {
+        IQuery query = new CriteriaQuery(WidgetLink.class, Where.equal("id", id));
+        Objects<WidgetLink> links = odb.getObjects(query);
+        for (WidgetLink link : links) {
+            return link.nota;
+        }
+        return null;
+    }
+
+    public void borrarLink(int id) {
+        IQuery query = new CriteriaQuery(WidgetLink.class, Where.equal("id", id));
+        Objects<WidgetLink> links = odb.getObjects(query);
+        for (WidgetLink link : links) {
+            odb.delete(link);
+            odb.commit();
+        }
+    }
+
 }

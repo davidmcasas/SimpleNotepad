@@ -1,6 +1,9 @@
 package com.davidmcasas.simplenotepad.adapters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.davidmcasas.simplenotepad.AppWidget;
 import com.davidmcasas.simplenotepad.activities.NotaActivity;
 import com.davidmcasas.simplenotepad.activities.MainActivity;
 import com.davidmcasas.simplenotepad.data.NeodatisHelper;
@@ -60,6 +64,13 @@ public class NotaAdapter extends RecyclerView.Adapter<NotaViewHolder> {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 NeodatisHelper.getInstance(context).borrarNota(nota);
+                                //-- Actualizar Widgets
+                                Intent intent = new Intent(context, AppWidget.class);
+                                intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                                int ids[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, AppWidget.class));
+                                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+                                context.sendBroadcast(intent);
+                                //--
                                 ((MainActivity)context).cargarSpinnerCategorias(((MainActivity)context).spinner.getSelectedItemPosition());
                             }
                         });

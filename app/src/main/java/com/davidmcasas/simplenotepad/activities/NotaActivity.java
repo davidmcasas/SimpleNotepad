@@ -2,7 +2,12 @@ package com.davidmcasas.simplenotepad.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.davidmcasas.simplenotepad.AppWidget;
 import com.davidmcasas.simplenotepad.data.Categoria;
 import com.davidmcasas.simplenotepad.data.Nota;
 import com.davidmcasas.simplenotepad.R;
@@ -31,6 +37,14 @@ public class NotaActivity extends AppCompatActivity {
         this.titulo = findViewById(R.id.editTextTitulo);
         this.contenido = findViewById(R.id.editTextContenido);
         this.spinner = findViewById(R.id.spinner_nota);
+
+        { // si se accede desde widget
+            Intent intent = getIntent();
+            int appWidgetId = intent.getIntExtra("appWidgetId", 0);
+            if (appWidgetId != 0) {
+                nota = NeodatisHelper.getInstance(getApplicationContext()).leerLinkId(appWidgetId);
+            }
+        }
 
         if (nota == null) {
             nota = new Nota();
@@ -59,6 +73,15 @@ public class NotaActivity extends AppCompatActivity {
             nota.setTitulo(titulo.getText().toString());
             nota.setContenido(contenido.getText().toString());
             NeodatisHelper.getInstance(this).guardarNota(nota);
+
+            //-- Actualizar Widgets
+                Intent intent = new Intent(this, AppWidget.class);
+                intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), AppWidget.class));
+                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+                sendBroadcast(intent);
+            //--
+
             finish();
         } else {
             this.editing = true;

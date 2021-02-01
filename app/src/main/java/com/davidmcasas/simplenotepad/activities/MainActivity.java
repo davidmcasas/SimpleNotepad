@@ -87,8 +87,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        neodatis.terminate();
+        //neodatis.terminate();
     }
 
     private void cargarListaNotas() {
