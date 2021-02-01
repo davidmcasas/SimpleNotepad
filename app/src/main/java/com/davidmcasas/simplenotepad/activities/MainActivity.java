@@ -73,12 +73,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        try {
-            spinner.setSelection(selection);
-        } catch (Exception e) {
-            spinner.setSelection(0);
+        if (selection >= 0 && selection < spinner.getCount()) {
+            try {
+                spinner.setSelection(selection);
+            } catch (Exception e) {
+                spinner.setSelection(0);
+            }
         }
+
 
     }
 
