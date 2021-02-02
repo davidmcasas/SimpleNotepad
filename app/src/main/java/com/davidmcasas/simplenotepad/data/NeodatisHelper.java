@@ -40,7 +40,7 @@ public class NeodatisHelper {
      * Version de la base de datos,
      * cambiar este valor borrará la base de datos.
      */
-    final long VERSION = 3L;
+    final long VERSION = 1L;
 
     /**
      * Instancia del ayudante.
