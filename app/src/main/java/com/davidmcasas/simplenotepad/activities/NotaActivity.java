@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.davidmcasas.simplenotepad.AppWidget;
 import com.davidmcasas.simplenotepad.data.Categoria;
@@ -27,6 +28,7 @@ public class NotaActivity extends AppCompatActivity {
 
     public static Nota nota;
     private EditText titulo, contenido;
+    private TextView fecha;
     private Spinner spinner;
     private boolean editing;
 
@@ -36,6 +38,7 @@ public class NotaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nota);
         this.titulo = findViewById(R.id.editTextTitulo);
         this.contenido = findViewById(R.id.editTextContenido);
+        this.fecha = findViewById(R.id.editTextFecha);
         this.spinner = findViewById(R.id.spinner_nota);
 
         { // si se accede desde widget
@@ -55,6 +58,7 @@ public class NotaActivity extends AppCompatActivity {
             this.editing = false;
             titulo.setText(nota.getTitulo());
             contenido.setText(nota.getContenido());
+            fecha.setText(nota.getFecha());
             titulo.setFocusableInTouchMode(false);
             contenido.setFocusableInTouchMode(false);
             spinner.setEnabled(false);

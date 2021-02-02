@@ -13,6 +13,7 @@ import org.neodatis.odb.ODBFactory;
 import org.neodatis.odb.Objects;
 import org.neodatis.odb.core.query.IQuery;
 import org.neodatis.odb.core.query.criteria.Where;
+import org.neodatis.odb.core.query.nq.SimpleNativeQuery;
 import org.neodatis.odb.impl.core.query.criteria.CriteriaQuery;
 
 import java.io.File;
@@ -39,7 +40,7 @@ public class NeodatisHelper {
      * Version de la base de datos,
      * cambiar este valor borrará la base de datos.
      */
-    final long VERSION = 1L;
+    final long VERSION = 3L;
 
     /**
      * Instancia del ayudante.
@@ -223,7 +224,8 @@ public class NeodatisHelper {
      */
     public ArrayList<Nota> getNotas() {
 
-        Objects<Nota> notasObjects = odb.getObjects(Nota.class);
+        IQuery query = new CriteriaQuery(Nota.class).orderByDesc("fecha");
+        Objects<Nota> notasObjects = odb.getObjects(query);
         return new ArrayList<>(notasObjects);
     }
 
@@ -238,7 +240,7 @@ public class NeodatisHelper {
         ArrayList<Nota> notas = new ArrayList<>();
 
         if (onlyNullCategory) {
-            IQuery query = new CriteriaQuery(Nota.class, Where.isNull("categoria"));
+            IQuery query = new CriteriaQuery(Nota.class, Where.isNull("categoria")).orderByDesc("fecha");
             Objects<Nota> notasObjects = odb.getObjects(query);
             notas.addAll(notasObjects);
             return notas;
@@ -249,7 +251,7 @@ public class NeodatisHelper {
         }
 
         try {
-            IQuery query = new CriteriaQuery(Nota.class, Where.equal("categoria", odb.getObjectId(categoria)));
+            IQuery query = new CriteriaQuery(Nota.class, Where.equal("categoria", odb.getObjectId(categoria))).orderByDesc("fecha");
             Objects<Nota> notasObjects = odb.getObjects(query);
             notas.addAll(notasObjects);
         } catch (Exception ignored) {}

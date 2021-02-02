@@ -22,18 +22,27 @@
                 android:id="@+id/editTextTitulo_widget"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4sp"
+                android:paddingHorizontal="4sp"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="top"/>
-
+            <TextView
+            android:id="@+id/editTextFecha_widget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="4sp"
+            android:textSize="12sp"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"/>
             <TextView
                 android:id="@+id/editTextContenido_widget"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4sp"
+                android:paddingHorizontal="4sp"
+                android:layout_marginVertical="4sp"
                 android:textSize="16sp"
                 android:gravity="top"/>
+
         </LinearLayout>
 
 

@@ -75,6 +75,14 @@
                 android:hint="Untitled"
                 android:inputType="textMultiLine"
                 android:gravity="top" />
+            <TextView
+                android:id="@+id/editTextFecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="4sp"
+                android:textSize="12sp"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"/>
 
             <EditText
                 android:id="@+id/editTextContenido"

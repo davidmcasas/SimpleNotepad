@@ -39,6 +39,7 @@ public class NotaAdapterWidget extends RecyclerView.Adapter<NotaViewHolder> {
         final Nota nota = notas.get(position);
         holder.titulo.setText(nota.getTitulo());
         holder.contenido.setText(nota.getContenido());
+        holder.fecha.setText(nota.getFecha());
         if (nota.getTitulo().trim().length() == 0) {
             holder.titulo.setVisibility(View.GONE);
         }

@@ -1,42 +1,49 @@
 package com.davidmcasas.simplenotepad.data;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Nota {
 
     private Categoria categoria;
     private String titulo;
     private String contenido;
-    /*private long id;
-    private static long id_count = 1;*/
+    private String fecha;
 
     public Nota() {
         this.categoria = null;
         this.titulo = "";
         this.contenido = "";
-        /*this.id = id_count++;*/
+        updateFecha();
     }
 
     public Nota(String titulo, String contenido) {
         this.categoria = null;
         this.titulo = titulo;
         this.contenido = contenido;
+        updateFecha();
     }
 
     public Nota(String titulo, String contenido, Categoria categoria) {
         this.categoria = categoria;
         this.titulo = titulo;
         this.contenido = contenido;
+        updateFecha();
     }
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+        updateFecha();
     }
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+        updateFecha();
     }
 
     public void setContenido(String contenido) {
         this.contenido = contenido;
+        updateFecha();
     }
 
     public Categoria getCategoria() {
@@ -51,8 +58,11 @@ public class Nota {
         return contenido;
     }
 
-    /*public long getId() {return id;}
-    public static long getId_count() { return id_count;}
-    public void setId(long id) {this.id = id; }
-    public static void setId_count(long id_count) {Nota.id_count = id_count;}*/
+    private void updateFecha() {
+        this.fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
 }

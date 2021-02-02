@@ -35,6 +35,7 @@ public class AppWidget extends AppWidgetProvider {
             if (nota == null) {
                 views.setTextViewText(R.id.editTextTitulo_widget, "(Deleted)");
                 views.setTextViewText(R.id.editTextContenido_widget, "");
+                views.setTextViewText(R.id.editTextFecha_widget, "");
                 views.setOnClickPendingIntent(R.id.widget, null);
             } else {
                 views.setTextViewText(R.id.editTextTitulo_widget, nota.getTitulo());
@@ -45,6 +46,7 @@ public class AppWidget extends AppWidgetProvider {
                 }
 
                 views.setTextViewText(R.id.editTextContenido_widget, nota.getContenido());
+                views.setTextViewText(R.id.editTextFecha_widget, nota.getFecha());
 
                 Intent intent = new Intent(context, NotaActivity.class);
                 intent.putExtra("appWidgetId", appWidgetId);
@@ -54,6 +56,7 @@ public class AppWidget extends AppWidgetProvider {
         } catch (Exception e) {
             views.setTextViewText(R.id.editTextTitulo_widget, "(Error)");
             views.setTextViewText(R.id.editTextContenido_widget, "");
+            views.setTextViewText(R.id.editTextFecha_widget, "");
             views.setOnClickPendingIntent(R.id.widget, null);
         }
         appWidgetManager.updateAppWidget(appWidgetId, views);
