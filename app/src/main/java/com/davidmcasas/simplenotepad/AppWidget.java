@@ -6,12 +6,18 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.opengl.Visibility;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 
+import com.davidmcasas.simplenotepad.activities.MainActivity;
 import com.davidmcasas.simplenotepad.activities.NotaActivity;
 import com.davidmcasas.simplenotepad.data.NeodatisHelper;
 import com.davidmcasas.simplenotepad.data.Nota;
+
+import org.neodatis.odb.gui.server.Main;
 
 /**
  * Implementation of App Widget functionality.
@@ -29,19 +35,27 @@ public class AppWidget extends AppWidgetProvider {
             if (nota == null) {
                 views.setTextViewText(R.id.editTextTitulo_widget, "(Deleted)");
                 views.setTextViewText(R.id.editTextContenido_widget, "");
+                views.setOnClickPendingIntent(R.id.widget, null);
             } else {
                 views.setTextViewText(R.id.editTextTitulo_widget, nota.getTitulo());
+                if (nota.getTitulo().trim().length() == 0) {
+                    views.setViewVisibility(R.id.editTextTitulo_widget, View.GONE);
+                } else {
+                    views.setViewVisibility(R.id.editTextTitulo_widget, View.VISIBLE);
+                }
+
                 views.setTextViewText(R.id.editTextContenido_widget, nota.getContenido());
+
+                Intent intent = new Intent(context, NotaActivity.class);
+                intent.putExtra("appWidgetId", appWidgetId);
+                PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                views.setOnClickPendingIntent(R.id.widget, pendingIntent);
             }
         } catch (Exception e) {
             views.setTextViewText(R.id.editTextTitulo_widget, "(Error)");
             views.setTextViewText(R.id.editTextContenido_widget, "");
+            views.setOnClickPendingIntent(R.id.widget, null);
         }
-        Intent intent = new Intent(context, NotaActivity.class);
-        intent.putExtra("appWidgetId", appWidgetId);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setOnClickPendingIntent(R.id.widget, pendingIntent);
-
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 

@@ -39,7 +39,7 @@ public class NeodatisHelper {
      * Version de la base de datos,
      * cambiar este valor borrará la base de datos.
      */
-    final long VERSION = 8L;
+    final long VERSION = 1L;
 
     /**
      * Instancia del ayudante.
@@ -137,7 +137,11 @@ public class NeodatisHelper {
      * Cierra la base de datos.
      */
     public void terminate() {
-        this.odb.close();
+        try {
+            this.odb.close();
+        } catch (Exception e) {
+
+        }
     }
 
     /*
@@ -169,6 +173,12 @@ public class NeodatisHelper {
      */
     public void borrarNota(Nota nota) {
         try {
+            IQuery query = new CriteriaQuery(WidgetLink.class, Where.equal("nota", odb.getObjectId(nota)));
+            Objects<WidgetLink> links = odb.getObjects(query);
+            for (WidgetLink link : links) {
+                odb.delete(link);
+                odb.commit();
+            }
             odb.delete(nota);
             odb.commit();
         } catch (Exception ignored) {}

@@ -74,14 +74,6 @@ public class NotaActivity extends AppCompatActivity {
             nota.setContenido(contenido.getText().toString());
             NeodatisHelper.getInstance(this).guardarNota(nota);
 
-            //-- Actualizar Widgets
-                Intent intent = new Intent(this, AppWidget.class);
-                intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-                int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), AppWidget.class));
-                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
-                sendBroadcast(intent);
-            //--
-
             finish();
         } else {
             this.editing = true;
@@ -91,6 +83,33 @@ public class NotaActivity extends AppCompatActivity {
             Button b = findViewById(R.id.button_guardar);
             b.setText("Save");
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        actualizarWidgets();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        actualizarWidgets();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        actualizarWidgets();
+    }
+
+    private void actualizarWidgets() {
+        Intent intent = new Intent(this, AppWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), AppWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+        sendBroadcast(intent);
     }
 
     public void cargarSpinnerCategorias() {

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.davidmcasas.simplenotepad.AppWidget;
 import com.davidmcasas.simplenotepad.data.Categoria;
 import com.davidmcasas.simplenotepad.data.Nota;
 import com.davidmcasas.simplenotepad.R;
@@ -88,6 +91,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         //neodatis.terminate();
+        actualizarWidgets();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        actualizarWidgets();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        actualizarWidgets();
+    }
+
+    private void actualizarWidgets() {
+        Intent intent = new Intent(this, AppWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), AppWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+        sendBroadcast(intent);
     }
 
     private void cargarListaNotas() {
