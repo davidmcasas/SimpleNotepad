@@ -1,23 +1,17 @@
-package com.davidmcasas.simplenotepad;
+package com.davidmcasas.simplenotepad.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.opengl.Visibility;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
-import android.widget.TextView;
 
-import com.davidmcasas.simplenotepad.activities.MainActivity;
+import com.davidmcasas.simplenotepad.R;
 import com.davidmcasas.simplenotepad.activities.NotaActivity;
 import com.davidmcasas.simplenotepad.data.NeodatisHelper;
 import com.davidmcasas.simplenotepad.data.Nota;
-
-import org.neodatis.odb.gui.server.Main;
 
 /**
  * Implementation of App Widget functionality.

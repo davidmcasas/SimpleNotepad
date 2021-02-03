@@ -1,21 +1,14 @@
 package com.davidmcasas.simplenotepad.adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.davidmcasas.simplenotepad.AppWidget;
-import com.davidmcasas.simplenotepad.AppWidgetConfigureActivity;
+import com.davidmcasas.simplenotepad.widget.AppWidgetConfigureActivity;
 import com.davidmcasas.simplenotepad.R;
-import com.davidmcasas.simplenotepad.activities.MainActivity;
-import com.davidmcasas.simplenotepad.activities.NotaActivity;
-import com.davidmcasas.simplenotepad.data.NeodatisHelper;
 import com.davidmcasas.simplenotepad.data.Nota;
 
 import java.util.ArrayList;

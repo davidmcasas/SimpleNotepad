@@ -1,19 +1,12 @@
 package com.davidmcasas.simplenotepad.data;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-
-import com.davidmcasas.simplenotepad.AppWidget;
-import com.davidmcasas.simplenotepad.WidgetLink;
 
 import org.neodatis.odb.ODB;
 import org.neodatis.odb.ODBFactory;
 import org.neodatis.odb.Objects;
 import org.neodatis.odb.core.query.IQuery;
 import org.neodatis.odb.core.query.criteria.Where;
-import org.neodatis.odb.core.query.nq.SimpleNativeQuery;
 import org.neodatis.odb.impl.core.query.criteria.CriteriaQuery;
 
 import java.io.File;

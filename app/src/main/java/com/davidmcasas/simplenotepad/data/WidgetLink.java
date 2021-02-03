@@ -1,4 +1,4 @@
-package com.davidmcasas.simplenotepad;
+package com.davidmcasas.simplenotepad.data;
 
 import com.davidmcasas.simplenotepad.data.Nota;
 

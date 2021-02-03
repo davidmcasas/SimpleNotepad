@@ -1,6 +1,5 @@
 package com.davidmcasas.simplenotepad.adapters;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.davidmcasas.simplenotepad.AppWidget;
+import com.davidmcasas.simplenotepad.widget.AppWidget;
 import com.davidmcasas.simplenotepad.activities.NotaActivity;
 import com.davidmcasas.simplenotepad.activities.MainActivity;
 import com.davidmcasas.simplenotepad.data.NeodatisHelper;

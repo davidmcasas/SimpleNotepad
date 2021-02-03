@@ -1,22 +1,24 @@
-package com.davidmcasas.simplenotepad;
+package com.davidmcasas.simplenotepad.widget;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.davidmcasas.simplenotepad.adapters.NotaAdapter;
+import com.davidmcasas.simplenotepad.R;
 import com.davidmcasas.simplenotepad.adapters.NotaAdapterWidget;
 import com.davidmcasas.simplenotepad.data.Categoria;
 import com.davidmcasas.simplenotepad.data.NeodatisHelper;
 import com.davidmcasas.simplenotepad.data.Nota;
+import com.davidmcasas.simplenotepad.data.WidgetLink;
+import com.davidmcasas.simplenotepad.widget.AppWidget;
 
 import java.util.ArrayList;
 
@@ -26,8 +28,9 @@ import java.util.ArrayList;
 public class AppWidgetConfigureActivity extends Activity {
 
     public static Nota nota = null;
+    Spinner spinner = null;
 
-    private static final String PREFS_NAME = "com.davidmcasas.simplenotepad.AppWidget";
+    private static final String PREFS_NAME = "com.davidmcasas.simplenotepad.widget.AppWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     //EditText mAppWidgetText;
@@ -75,6 +78,40 @@ public class AppWidgetConfigureActivity extends Activity {
 
 
         finish();
+    }
+
+    public void cargarSpinnerCategorias() {
+
+        final ArrayList<Categoria> categorias = NeodatisHelper.getInstance(this).getCategorias();
+        ArrayList<String> lista = new ArrayList<>();
+        lista.add("All Notes");
+        for (Categoria c : categorias) {
+            lista.add(c.getNombre());
+        }
+        lista.add("Uncategorized");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, lista);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    cargarListaNotas(null, false);
+                } else if (position == categorias.size() + 1) {
+                    cargarListaNotas(null, true);
+                } else {
+                    cargarListaNotas(categorias.get(position - 1), false);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public AppWidgetConfigureActivity() {
@@ -125,6 +162,8 @@ public class AppWidgetConfigureActivity extends Activity {
             return;
         }
 
+        spinner = findViewById(R.id.spinner_widget);
+        cargarSpinnerCategorias();
         cargarListaNotas(null, false);
     }
 

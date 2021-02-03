@@ -7,10 +7,12 @@
     <color name="colorText">#000000</color>
     <color name="colorBackground">#FFFFFF</color>
 
+    <!--
     <color name="colorPrimary_dark">#335555</color>
     <color name="colorPrimaryDark_dark">#112233</color>
     <color name="colorAccent_dark">#FFFFFF</color>
     <color name="colorText_dark">#FFFFFF</color>
     <color name="colorBackground_dark">#222222</color>
+    -->
 
 </resources>

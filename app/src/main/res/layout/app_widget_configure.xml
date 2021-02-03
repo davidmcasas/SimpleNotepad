@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="4dp">
+    android:orientation="vertical">
 
 <!--
     <TextView
@@ -25,12 +24,37 @@
         android:layout_marginTop="8dp"
         android:text="@string/add_widget" />
 -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:fitsSystemWindows="true">
+
+            <Spinner
+                android:id="@+id/spinner_widget"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:popupBackground="?attr/colorPrimary"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <!--
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:padding="4dp"
         android:gravity="center"
         android:text="Select a note to display" />
+    -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaNotasConfigure"
         android:layout_width="match_parent"

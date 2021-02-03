@@ -2,12 +2,11 @@ package com.davidmcasas.simplenotepad.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,8 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.davidmcasas.simplenotepad.AppWidget;
+import com.davidmcasas.simplenotepad.widget.AppWidget;
 import com.davidmcasas.simplenotepad.data.Categoria;
 import com.davidmcasas.simplenotepad.data.Nota;
 import com.davidmcasas.simplenotepad.R;
@@ -153,5 +153,26 @@ public class NotaActivity extends AppCompatActivity {
 
         spinner.setSelection(position);
 
+    }
+
+    // doble click en el botón atrás para salir si se está editando la nota
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce || !editing) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }

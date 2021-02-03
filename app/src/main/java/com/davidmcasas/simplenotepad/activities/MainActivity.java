@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.davidmcasas.simplenotepad.AppWidget;
+import com.davidmcasas.simplenotepad.widget.AppWidget;
 import com.davidmcasas.simplenotepad.data.Categoria;
 import com.davidmcasas.simplenotepad.data.Nota;
 import com.davidmcasas.simplenotepad.R;
